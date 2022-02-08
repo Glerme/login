@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { auth } from 'utils/auth';
 
 import { HomeView } from 'views/Home';
 
@@ -8,10 +9,10 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  console.log(process.env.APP_URL);
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { accessToken, usuario } = await auth(ctx);
 
   return {
-    props: {},
+    props: { accessToken, usuario },
   };
 };
